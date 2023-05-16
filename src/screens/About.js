@@ -18,8 +18,10 @@ const About = ({navigation}) => {
     
     return (
        <View style={Styles.container}>
+        <Text style={{ textAlign:'left' }} onPress={()=> navigation.navigate('Home')}>Back</Text>
           <View style={Styles.wrapper}>
             <View style={Styles.content}>
+            
                     <Image source={logo} style={Styles.logoImage}/>
                    </View>
                    <Text style={Styles.aboutText}>
@@ -29,7 +31,11 @@ It works as a simple word processing progtam and gives you the flexibility to ty
 you need.
         </Text>
           </View>
-          <Text style={Styles.versionText}>Version 1.0.0</Text>
+          {/* <View style={{ flexDirection:'row' }}> */}
+                <Text style={Styles.versionText}>Version 1.0.0</Text>
+                
+          {/* </View> */}
+          
        </View> 
     );
 }
@@ -48,7 +54,8 @@ const Styles = StyleSheet.create({
    },
    versionText:{
     textAlign:'center',
-    color:'#9f9f9f'
+    // justifyContent:'space-between',
+    color:'#9f9f9f',
    },
    wrapper:{ 
     display:'flex',
@@ -58,10 +65,10 @@ content:{
     padding:20,
     display:'flex',
     alignItems:'center',
-backgroundColor:'#fff',
-maxWidth:200,
-borderRadius:10,
-marginBottom:20},
+    backgroundColor:'#fff',
+    maxWidth:200,
+    borderRadius:10,
+    marginBottom:20},
 logoImage:{
     width:150,
     height:150,

@@ -4,7 +4,6 @@ import {
     Text,
     TextInput,
     TouchableHighlight,
-    
     View,FlatList,SafeAreaView,
     ImageBackground,TouchableOpacity,ScrollView, Pressable
 } from 'react-native';
@@ -17,15 +16,17 @@ import { Platform } from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { AddNote,EditNote } from '../redux/notesActions';
 
-const Note = ({navigation,route}) =>{
+const Note = ({navigation,route}) => {
     const {noteId} = route.params
     const notesList = useSelector(state => state.notes)
     const dispatch = useDispatch()
     const richText = useRef();
     const scrollRef = useRef()
     const [descHTML,setDescHTML]  =useState('')
+    // console.log("descHTML in note",descHTML)
     const [topic,setTopic] = useState('')
-    const [selectedNotes,setSelectedNote] = useState()
+    console.log("topic from note",topic)
+    const [selectedNote,setSelectedNote] = useState()
 
     const richTextHandler = (descriptionText)=>{
         if(descriptionText){
@@ -44,31 +45,32 @@ const Note = ({navigation,route}) =>{
         console.log('no note')
       }
     },[noteId])
-    const onSaveNote = ( ) => {
-      const replaceHTML = descHTML.replace(/<(.|\n)*?>/g,'').trim()
-      const replaceWhitespaces = replaceHTML.replace(/&nbsp;/g,'').trim()
-      const date = new Date()
+    const onSaveNote = () => {
+      const replaceHTML = descHTML.replace(/<(.|\n)*?>/g,'').trim();
+      const replaceWhitespaces = replaceHTML.replace(/&nbsp;/g,'').trim();
+      const date = new Date();
       if(replaceWhitespaces.length <= 0 || topic.length <= 0){
         console.log('empty')
       }else{
         if(noteId){
             dispatch(EditNote(
-                selectedNotes.id,
+                selectedNote.id,
             descHTML,
             date.toLocaleDateString(),
-            topic,
             date.toLocaleTimeString(),
             replaceWhitespaces.substring(0,40)
             ))
         }else{
-            dispatch(AddNote(
+            dispatch(
+                AddNote(
                 Date.now(),
-            descHTML,
-            date.toLocaleDateString(),
-            topic,
-            date.toLocaleTimeString(),
-            replaceWhitespaces.substring(0,40)
-            ))
+                descHTML,
+                topic,
+                date.toLocaleDateString(),
+                date.toLocaleTimeString(),
+                replaceWhitespaces.substring(0,40)
+                )
+            )
         }
         navigation.navigate('Home')
       }
@@ -88,7 +90,7 @@ const Note = ({navigation,route}) =>{
                                         justifyContent:'center'
                                      }}
                                         >
-                        <Text style={{ textAlign:'center',color:'#e6e6e6',fontWeight:'600'}}>Save Changes
+                        <Text style={{ textAlign:'center',color:'#e6e6e6',fontWeight:'600'}} >Save Changes
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -108,11 +110,13 @@ const Note = ({navigation,route}) =>{
                     </ScrollView>
                 </KeyboardAvoidingView>
                 <View style={{ paddingHorizontal:20,marginTop:10,marginBottom:20,backgroundColor:'#d9d9d9' }}>
-                    <TextInput value={topic}
+                    {/* <TextInput value={topic}
                     onChangeText={(txt) => setTopic(txt)}
-                     placeholder='Enter title Here' placeholderTextColor={'gray'} style={{fontSize:16,paddingVertical:10}}/>
+                     placeholder='Enter title Here' 
+                     placeholderTextColor={'gray'} style={{fontSize:16,paddingVertical:10}}/> */}
                 </View>
-                <RichToolbar editor={richText}
+                <RichToolbar 
+                editor={richText}
                 actions={[
                     actions.setBold,
                     actions.setItalic,

@@ -1,5 +1,5 @@
 import {ADD_NOTE,DELETE_NOTES,EDIT_NOTE,DELETE_NOTE} from './notesActions'
-const initialState={
+const initialState= {
     notes:[]
 }
 
@@ -9,7 +9,7 @@ const notesReducer = (state = initialState ,action) => {
               const {id,note,date,topic,time,desc} = action.payload
               return {
                 ...state,
-                notes:[...states.notes,{id,note,date,topic,time,desc}]
+                notes:[...state.notes,{id,note,topic,date,time,desc}]
               }
         }
         case EDIT_NOTE:{
