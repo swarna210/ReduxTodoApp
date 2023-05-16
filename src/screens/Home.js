@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState ,useEffect} from 'react';
 import {
     StyleSheet,
     Text,
@@ -14,11 +14,81 @@ import Feather from 'react-native-vector-icons/Feather'
 import {Menu,AlertDialog,Button, Alert}  from 'native-base'
 import { NativeBaseProvider } from 'native-base';
 import { StatusBar } from 'react-native';
+import { useSelector,useDispatch } from 'react-redux';
+import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
 
 const Home = ({navigation}) => {
+    const noteList = useSelector((state) => state.notes)
+    const dispatch = useDispatch()
+    const [sortedNotes,setSortedNotes] = useState([])
     const[isOpen,setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
     const cancelRef = useRef(null)
+// 
+
+const sort = (arr) => {
+    var date = '';
+    var sorted = [];
+    var temp = [];
+    arr.forEach((e.index) => {
+        if(index === 0) {
+            temp.push(e)
+            date = e.date
+            if(index ===  arr.length -1){
+                const ob = {
+                    day:date,
+                    notes:temp
+                }
+                sorted.push(ob)
+            }
+        } else{
+            if(e.date === date){
+                temp.push(e)
+                if(index === arr.length -1){
+                    const ob = {
+                        day:date,
+                        notes:temp
+                    };
+                    sorted.push(ob)
+                }
+            }else{
+                const ob = {
+                    day:date,
+                    notes:temp
+                };
+                sorted.push(ob)
+                temp = []
+                date =  e.date
+                temp.push(e)
+                if(index ===  arr.length -1){
+                    const ob = {
+                        day:date,
+                        notes:temp
+                    };
+                    sorted.push(ob);
+                }
+            }
+        }
+    });
+    return sorted;
+ };
+
+
+// 
+useEffect(() =>{
+    setSortedNotes(sort(notesList))
+},[noteList])
+const handleClickNote = (id) =>{
+    navigation.navigate('Note',{noteId:id})
+}
+
+const handleDeleteAll = async () => {
+    dispatch(DeleteAllNotes())
+    onClose()
+}
+const handleDeleteNote = (id) => {
+    dispatch(DeleteNote(id))
+}
     return (
        <SafeAreaView>
         <StatusBar style='auto'/>
@@ -58,34 +128,50 @@ const Home = ({navigation}) => {
                                         ref={cancelRef}>
                                                 Cancel
                                 </Button>
-                            <Button colorScheme='danger'>Delete</Button>
+                            <Button colorScheme='danger' onPress={handleDeleteAll}>Delete</Button>
                             </Button.Group>
                         </AlertDialog.Footer>
                         </Alert.Content>
                     </AlertDialog>
             </View>
-            <View style={Styles.noteContainer}>
+            {
+                noteList.length > 0 ?(
+                    <>
+                    {
+                        sortedNotes.map((note,index) => (
+            <View key={index} style={Styles.noteContainer}>
                     <View style={Styles.noteHeader}>
-                        <Text style={Styles.noteDate}>09/09/2023</Text>
+                        <Text style={Styles.noteDate}>{note.day}</Text>
                         <Text style={Styles.noteView}>View All</Text>
                     </View>
-                    <TouchableOpacity style={{ alignItems:'center' }} >
+                    {
+
+                    note.notes.map((m,idx) =>(
+                    <TouchableOpacity key= {idx} style={{ alignItems:'center' }} onPress={()=> handleClickNote(m.id)} >
                         <View style={Styles.noteCardWrapper}>
                             <View style={Styles.noteLeftContent}>
                                 <View style={{ backgroundColor:'#427dde' ,height:55,width:5,borderRadius:50 }}></View>
                             </View>
 
                             <View style={Styles.noteMiddleContent}>
-                            <Text style={Styles.topText}>Festival Note</Text>
-                            <Text style={Styles.middleText}>This is the note for Festival</Text>
-                            <Text style={Styles.bottomText}>2.34 pm</Text>
+                            <Text style={Styles.topText}>{m.topic}</Text>
+                            <Text style={Styles.middleText}>{m.desc}</Text>
+                            <Text style={Styles.bottomText}>{m.time}</Text>
                         </View>
-                        <TouchableOpacity style={Styles.noteRightContent}>
+                        <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(m.id)}>
                             <FontAwesome5 name='trash' size={16} color='#404040'/>
                         </TouchableOpacity>
                           </View>
                     </TouchableOpacity>
+                    ))}
             </View>
+            ))}
+            </>
+            ) : (
+                <View style={{ display:'flex',alignItems:'center' }}>
+                    <Text style={{ color:'#9f9f9f' }}>You dont have any notes yet ...</Text>
+                </View>
+            )}
         </ScrollView>
         <View style={Styles.addButtonView}>
             <TouchableOpacity style={Styles.addButton} onPress={()=> navigation.navigate('Note',{noteId:null})}>
