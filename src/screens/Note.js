@@ -37,7 +37,7 @@ const Note = ({navigation,route}) => {
          const selectedNotes = notesList.filter((e) =>e.id === noteId )[0]
          setSelectedNote(selectedNotes)
          setDescHTML(selectedNotes.note)
-         setTopic(selectedNotes.topic)
+        //  setTopic(selectedNotes.topic)
       }else{
         console.log('no note')
       }

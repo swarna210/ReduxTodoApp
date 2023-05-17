@@ -20,12 +20,10 @@ import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
 const Home = ({navigation}) => {
     const noteList = useSelector((state) => state.notes)
     const dispatch = useDispatch()
-    // const [sortedNotes,setSortedNotes] = useState([])
-
     const[isOpen,setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
     const cancelRef = useRef(null)
-    console.log("noteList",noteList)
+    // console.log("noteList",noteList)
 
 const handleClickNote = (id) =>{
     navigation.navigate('Note',{noteId:id})
@@ -59,28 +57,6 @@ const handleDeleteNote = (id) => {
                 <Menu.Item onPress={handleDeleteAll}>Delete All</Menu.Item>
                 <Menu.Item onPress={()=>navigation.navigate('About')}>About</Menu.Item>
                 </Menu>
-                {/*  */}
-                
-                {/* <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-                        <AlertDialog.Content>
-                        <AlertDialog.CloseButton />
-                        <AlertDialog.Header>Delete All notes</AlertDialog.Header>
-                        <AlertDialog.Body>
-                        This will remove all your notes from this app.
-                        </AlertDialog.Body>
-                        <AlertDialog.Footer>
-                            <Button.Group space={2}>
-                            <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
-                                Cancel
-                            </Button>
-                            <Button colorScheme="danger" onPress={onClose}>
-                                Delete
-                            </Button>
-                            </Button.Group>
-                        </AlertDialog.Footer>
-                        </AlertDialog.Content>
-                    </AlertDialog> */}
-                    {/*  */}
             </View>
             {
                 noteList.length > 0 ?(
@@ -90,7 +66,6 @@ const handleDeleteNote = (id) => {
             <View key={index} style={Styles.noteContainer}>
                     <View style={Styles.noteHeader}>
                         <Text style={Styles.noteDate}>{note.date}</Text>
-                        {/* <Text style={Styles.noteView}>View All</Text> */}
                     </View>
                     
                     <TouchableOpacity 
