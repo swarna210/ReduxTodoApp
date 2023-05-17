@@ -23,9 +23,7 @@ const Home = ({navigation}) => {
     // const[isOpen,setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
     // const cancelRef = useRef(null)
-    const [isChecked,setIsChecked] =useState(
-        false
-    )
+    const [isChecked,setIsChecked] =useState(false)
 
 const handleClickNote = (id) =>{
     navigation.navigate('Note',{noteId:id})
@@ -36,9 +34,19 @@ const handleDeleteAll = async () => {
 const handleDeleteNote = (id) => {
     dispatch(DeleteNote(id))
 }
-const checkBoxClick = (id) => {
-    console.log("ckeckbx click",id)
-}
+const changeCheck = (index) =>{
+    console.log("index",index)
+
+    // handleSelect(i) {
+    //     let {items} = this.state;
+    //     items = items.map((item, index) => {
+    //         if(index === i) {
+    //             item.selected = !item.selected
+    //         }
+    //         return item;
+    //     });
+    }
+
     return (
        <SafeAreaView>
         <StatusBar style='auto'/>
@@ -85,7 +93,11 @@ const checkBoxClick = (id) => {
                             <Text  style={[Styles.topText, isChecked && Styles.CheckedText]}>{note.desc}</Text>
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
-                        
+
+                        <CheckBox key={index} value={isChecked} 
+                        onValueChange={()=> changeCheck(index)}
+                    //    onValueChange={()=>alert("haii")}
+                        />
                         
                         
                         <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(note.id)}>
