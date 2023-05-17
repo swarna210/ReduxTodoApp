@@ -20,9 +20,7 @@ import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
 const Home = ({navigation}) => {
     const noteList = useSelector((state) => state.notes)
     const dispatch = useDispatch()
-    // const[isOpen,setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
-    // const cancelRef = useRef(null)
     const [isChecked,setIsChecked] =useState(false)
 
 const handleClickNote = (id) =>{
@@ -35,8 +33,20 @@ const handleDeleteNote = (id) => {
     dispatch(DeleteNote(id))
 }
 const changeCheck = (index) =>{
-    console.log("index",index)
+    console.log("indexfrom",index)
+noteList.map((item,i) =>{
+    console.log("i",i)
+    if(index === i){
+        console.log("2nd index",index)
+        console.log("second ii",i)
+        setIsChecked(true)
+        // console.log("isChecked",isChecked)
+    }else{
+        // console.log("not")
+        setIsChecked(false)
+    }
 
+})
     // handleSelect(i) {
     //     let {items} = this.state;
     //     items = items.map((item, index) => {
@@ -94,9 +104,8 @@ const changeCheck = (index) =>{
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
 
-                        <CheckBox key={index} value={isChecked} 
+                        <CheckBox key={index} value={index.isChecked} 
                         onValueChange={()=> changeCheck(index)}
-                    //    onValueChange={()=>alert("haii")}
                         />
                         
                         
