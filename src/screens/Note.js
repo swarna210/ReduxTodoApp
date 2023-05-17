@@ -35,9 +35,10 @@ const Note = ({navigation,route}) => {
     useEffect(()=> {
       if(noteId){
          const selectedNotes = notesList.filter((e) =>e.id === noteId )[0]
+         console.log("selectedNotes:",selectedNotes)
+         console.log("noteid",noteId)
          setSelectedNote(selectedNotes)
          setDescHTML(selectedNotes.note)
-        //  setTopic(selectedNotes.topic)
       }else{
         console.log('no note')
       }
@@ -46,6 +47,7 @@ const Note = ({navigation,route}) => {
       const replaceHTML = descHTML.replace(/<(.|\n)*?>/g,'').trim();
       const replaceWhitespaces = replaceHTML.replace(/&nbsp;/g,'').trim();
       const date = new Date();
+      console.log("date",date)
       if(replaceWhitespaces.length <= 0 ){
         console.log('empty')
       }else{
@@ -62,7 +64,6 @@ const Note = ({navigation,route}) => {
                 AddNote(
                 Date.now(),
                 descHTML,
-                
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
                 replaceWhitespaces.substring(0,40)

@@ -128,7 +128,8 @@ const Styles = StyleSheet.create({
     },
     headerText:{
         fontSize:28,
-        fontWeight:'400'
+        fontWeight:'400',
+        color:'#000'
     },
     subHeader:{
         display:'flex',
