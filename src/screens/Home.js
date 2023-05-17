@@ -33,28 +33,19 @@ const handleDeleteNote = (id) => {
     dispatch(DeleteNote(id))
 }
 const changeCheck = (index) =>{
-    console.log("indexfrom",index)
-noteList.map((item,i) =>{
-    console.log("i",i)
+    noteList.map((item,i) =>{
+        console.log("i",i)
     if(index === i){
-        console.log("2nd index",index)
-        console.log("second ii",i)
-        setIsChecked(true)
-        // console.log("isChecked",isChecked)
-    }else{
-        // console.log("not")
-        setIsChecked(false)
+        setIsChecked(!isChecked)
+    }else if(index !== i) {
+        console.log("not same")
+        setIsChecked(isChecked)
     }
 
+    
+
 })
-    // handleSelect(i) {
-    //     let {items} = this.state;
-    //     items = items.map((item, index) => {
-    //         if(index === i) {
-    //             item.selected = !item.selected
-    //         }
-    //         return item;
-    //     });
+    // 
     }
 
     return (
@@ -104,9 +95,11 @@ noteList.map((item,i) =>{
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
 
-                        <CheckBox key={index} value={index.isChecked} 
+                      
+                      <CheckBox key={index} value={isChecked} 
                         onValueChange={()=> changeCheck(index)}
                         />
+                       
                         
                         
                         <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(note.id)}>
