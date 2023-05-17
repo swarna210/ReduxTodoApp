@@ -12,7 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import {Menu,AlertDialog,Button, Alert}  from 'native-base'
-// import { NativeBaseProvider } from 'native-base';
+import CheckBox from 'react-native-check-box'
 import { StatusBar } from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
@@ -20,20 +20,24 @@ import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
 const Home = ({navigation}) => {
     const noteList = useSelector((state) => state.notes)
     const dispatch = useDispatch()
-    const[isOpen,setIsOpen] = useState(false)
+    // const[isOpen,setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
-    const cancelRef = useRef(null)
-    // console.log("noteList",noteList)
+    // const cancelRef = useRef(null)
+    const [isChecked,setIsChecked] =useState(
+        false
+    )
 
 const handleClickNote = (id) =>{
     navigation.navigate('Note',{noteId:id})
 }
 const handleDeleteAll = async () => {
     dispatch(DeleteAllNotes())
-    // onClose()
 }
 const handleDeleteNote = (id) => {
     dispatch(DeleteNote(id))
+}
+const checkBoxClick = (id) => {
+    console.log("ckeckbx click",id)
 }
     return (
        <SafeAreaView>
@@ -76,13 +80,18 @@ const handleDeleteNote = (id) => {
                                 <View style={{ backgroundColor:'#427dde' ,height:55,width:5,borderRadius:50 }}></View>
                             </View>
 
+                            {/* needed */}
                             <View style={Styles.noteMiddleContent}>
-                            <Text style={Styles.topText}>{note.desc}</Text>
+                            <Text  style={[Styles.topText, isChecked && Styles.CheckedText]}>{note.desc}</Text>
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
+                        
+                        
+                        
                         <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(note.id)}>
                             <FontAwesome5 name='trash' size={16} color='#404040'/>
                         </TouchableOpacity>
+
                           </View>
                     </TouchableOpacity>
                    
@@ -189,13 +198,18 @@ const Styles = StyleSheet.create({
         fontSize:16,
         fontWeight:'600',
         color:'#404040',
-        marginBottom:6
+        marginBottom:6,
+        // textDecorationLine: isChecked ? "line-through" : "none"
+    },
+    CheckedText: {
+        textDecorationLine: "line-through",
     },
     middleText:{
         fontSize:12,
         fontWeight:'600',
         color:'#9f9f9f',
-        marginBottom:10
+        marginBottom:10,
+        
     },
     bottomText:{
         fontSize:12,

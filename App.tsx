@@ -17,6 +17,7 @@ import {
 import Home from './src/screens/Home'
 import About from './src/screens/About'
 import Note from './src/screens/Note';
+
 import { NativeBaseProvider } from 'native-base';
 import {Provider} from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react';
