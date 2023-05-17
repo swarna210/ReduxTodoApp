@@ -102,10 +102,7 @@ const handleDeleteNote = (id) => {
                             </View>
 
                             <View style={Styles.noteMiddleContent}>
-                            <Text style={Styles.topText}> {note.time}</Text>
-                            <Text style={Styles.middleText}>{note.desc}</Text>
-                            {/* <Text style={Styles.bottomText}>{note.topic}</Text> */}
-                            {/* <Text style={Styles.bottomText}>{note.note}</Text> */}
+                            <Text style={Styles.topText}>{note.desc}</Text>
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
                         <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(note.id)}>

@@ -23,9 +23,6 @@ const Note = ({navigation,route}) => {
     const richText = useRef();
     const scrollRef = useRef()
     const [descHTML,setDescHTML]  =useState('')
-    // console.log("descHTML in note",descHTML)
-    const [topic,setTopic] = useState('')
-    console.log("topic from note",topic)
     const [selectedNote,setSelectedNote] = useState()
 
     const richTextHandler = (descriptionText)=>{
@@ -49,23 +46,23 @@ const Note = ({navigation,route}) => {
       const replaceHTML = descHTML.replace(/<(.|\n)*?>/g,'').trim();
       const replaceWhitespaces = replaceHTML.replace(/&nbsp;/g,'').trim();
       const date = new Date();
-      if(replaceWhitespaces.length <= 0 || topic.length <= 0){
+      if(replaceWhitespaces.length <= 0 ){
         console.log('empty')
       }else{
         if(noteId){
             dispatch(EditNote(
                 selectedNote.id,
-            descHTML,
-            date.toLocaleDateString(),
-            date.toLocaleTimeString(),
-            replaceWhitespaces.substring(0,40)
-            ))
+                descHTML,
+                date.toLocaleDateString(),
+                date.toLocaleTimeString(),
+                replaceWhitespaces.substring(0,40)
+                ))
         }else{
             dispatch(
                 AddNote(
                 Date.now(),
                 descHTML,
-                topic,
+                
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
                 replaceWhitespaces.substring(0,40)
