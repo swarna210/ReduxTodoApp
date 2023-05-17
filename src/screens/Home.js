@@ -97,7 +97,7 @@ const changeCheck = (index) =>{
 
                       
                       <CheckBox key={index} value={isChecked} 
-                        onValueChange={()=> changeCheck(index)}
+                        onValueChange={()=> changeCheck(index)} boxType='circle'
                         />
                        
                         
