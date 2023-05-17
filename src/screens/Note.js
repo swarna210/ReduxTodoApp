@@ -57,7 +57,8 @@ const Note = ({navigation,route}) => {
                 descHTML,
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
-                replaceWhitespaces.substring(0,40)
+                replaceWhitespaces.substring(0,40),
+                // checked=true
                 ))
         }else{
             dispatch(
@@ -66,7 +67,8 @@ const Note = ({navigation,route}) => {
                 descHTML,
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
-                replaceWhitespaces.substring(0,40)
+                replaceWhitespaces.substring(0,40),
+                // checked=false
                 )
             )
         }

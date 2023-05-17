@@ -12,7 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import {Menu,AlertDialog,Button, Alert}  from 'native-base'
-import CheckBox from 'react-native-check-box'
+import CheckBox from '@react-native-community/checkbox';
 import { StatusBar } from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
