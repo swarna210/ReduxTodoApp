@@ -6,17 +6,17 @@ const initialState= {
 const notesReducer = (state = initialState ,action) => {
     switch(action.type){
         case ADD_NOTE:{
-              const {id,note,date,time,desc} = action.payload
+              const {id,note,date,time,desc,checked} = action.payload
               return {
                 ...state,
-                notes:[...state.notes,{id,note,date,time,desc}]
+                notes:[...state.notes,{id,note,date,time,desc,checked}]
               }
         }
         case EDIT_NOTE:{
-            const {id,note,date,time,desc} = action.payload
+            const {id,note,date,time,desc,checked} = action.payload
             return{
                 ...state,
-                notes:state.notes.map((n)=> (n.id == id ? {...n,note,date,time,desc}:n))
+                notes:state.notes.map((n)=> (n.id == id ? {...n,note,date,time,desc,checked}:n))
             }
         }
         case DELETE_NOTE:{

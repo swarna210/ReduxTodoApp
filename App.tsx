@@ -17,6 +17,7 @@ import {
 import Home from './src/screens/Home'
 import About from './src/screens/About'
 import Note from './src/screens/Note';
+// import t from './src/screens/t'
 
 import { NativeBaseProvider } from 'native-base';
 import {Provider} from 'react-redux'
@@ -30,6 +31,7 @@ function MyStack(){
       <Stack.Screen name='Home' component={Home} options={{headerShown:false}}/>
       <Stack.Screen name='About' component={About} options={{headerShown:false}}/>
       <Stack.Screen name='Note' component={Note} options={{headerShown:false}}/>
+      {/* <Stack.Screen name='t' component={t} options={{headerShown:false}}/> */}
   </Stack.Navigator>
   )
 

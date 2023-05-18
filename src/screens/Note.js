@@ -24,7 +24,7 @@ const Note = ({navigation,route}) => {
     const scrollRef = useRef()
     const [descHTML,setDescHTML]  =useState('')
     const [selectedNote,setSelectedNote] = useState()
-
+console.log("notesList",notesList)
     const richTextHandler = (descriptionText)=>{
         if(descriptionText){
             setDescHTML(descriptionText);
@@ -47,6 +47,7 @@ const Note = ({navigation,route}) => {
       const replaceHTML = descHTML.replace(/<(.|\n)*?>/g,'').trim();
       const replaceWhitespaces = replaceHTML.replace(/&nbsp;/g,'').trim();
       const date = new Date();
+      const checked = false
       console.log("date",date)
       if(replaceWhitespaces.length <= 0 ){
         console.log('empty')
@@ -58,7 +59,7 @@ const Note = ({navigation,route}) => {
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
                 replaceWhitespaces.substring(0,40),
-                // checked=true
+                checked
                 ))
         }else{
             dispatch(
@@ -68,7 +69,7 @@ const Note = ({navigation,route}) => {
                 date.toLocaleDateString(),
                 date.toLocaleTimeString(),
                 replaceWhitespaces.substring(0,40),
-                // checked=false
+                checked 
                 )
             )
         }

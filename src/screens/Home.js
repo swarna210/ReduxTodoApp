@@ -13,6 +13,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import {Menu,AlertDialog,Button, Alert}  from 'native-base'
 import CheckBox from '@react-native-community/checkbox';
+import AnimatedCheckbox from 'react-native-checkbox-reanimated'
+import { Checkbox } from 'react-native-paper';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { StatusBar } from 'react-native';
 import { useSelector,useDispatch } from 'react-redux';
 import { DeleteAllNotes, DeleteNote } from '../redux/notesActions';
@@ -21,8 +24,11 @@ const Home = ({navigation}) => {
     const noteList = useSelector((state) => state.notes)
     const dispatch = useDispatch()
     const onClose = () => setIsOpen(false)
+    const [notes,setNotes] =useState(noteList)
     const [isChecked,setIsChecked] =useState(false)
+    // const [checked, setChecked] = useState(false)
 
+// console.log("notes",notes)
 const handleClickNote = (id) =>{
     navigation.navigate('Note',{noteId:id})
 }
@@ -32,21 +38,37 @@ const handleDeleteAll = async () => {
 const handleDeleteNote = (id) => {
     dispatch(DeleteNote(id))
 }
-const changeCheck = (index) =>{
-    noteList.map((item,i) =>{
-        console.log("i",i)
-    if(index === i){
-        setIsChecked(!isChecked)
-    }else if(index !== i) {
-        console.log("not same")
-        setIsChecked(isChecked)
-    }
+// const handleChange = (id) => {
+//     let temp = notes.map((list) => {
+//       if (id === list.id) {
+//         return(list.isChecked = true)
+//         // return { ...list, isChecked: !list.isChecked };
+//       }
+//       return list;
+//     });
+//     setNotes(temp);
+//   };
 
-    
+// 
 
-})
-    // 
-    }
+
+// const onChecked= (id) => {
+//     console.log("moves")
+//     console.log("passsed id ",id)
+
+//     var index = noteList.findIndex(obj => obj.id === id)
+//     console.log("index",index)
+//     // noteList[index].checked = ! noteList[index].checked
+// }
+
+
+const handleCheckboxPress = () => {
+    setChecked(prev => {
+      return !prev
+    })
+  }
+
+
 
     return (
        <SafeAreaView>
@@ -91,16 +113,31 @@ const changeCheck = (index) =>{
 
                             {/* needed */}
                             <View style={Styles.noteMiddleContent}>
-                            <Text  style={[Styles.topText, isChecked && Styles.CheckedText]}>{note.desc}</Text>
+                            
+
+
+                            <BouncyCheckbox
+                            isChecked={isChecked}
+                            textColor="#000"
+                            fillColor="#000"
+                            // iconComponent={your-own-component}
+                            fontFamily="JosefinSans-Regular"
+                            text={note.desc}
+                            checkboxSize={20}
+                            onPress={()=>setIsChecked(!isChecked)}
+                        />
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
 
-                      
-                      <CheckBox key={index} value={isChecked} 
-                        onValueChange={()=> changeCheck(index)} boxType='circle'
-                        />
+
+
+
+
                        
-                        
+
+
+                       
+                       
                         
                         <TouchableOpacity style={Styles.noteRightContent} onPress={() => handleDeleteNote(note.id)}>
                             <FontAwesome5 name='trash' size={16} color='#404040'/>
