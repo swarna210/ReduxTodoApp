@@ -26,7 +26,6 @@ const Home = ({navigation}) => {
     const onClose = () => setIsOpen(false)
     const [notes,setNotes] =useState(noteList)
     const [isChecked,setIsChecked] =useState(false)
-    // const [checked, setChecked] = useState(false)
 
 // console.log("notes",notes)
 const handleClickNote = (id) =>{
@@ -61,12 +60,16 @@ const handleDeleteNote = (id) => {
 //     // noteList[index].checked = ! noteList[index].checked
 // }
 
+const handleCheck=(id)=>{
+  console.log("id",id)
+}
 
-const handleCheckboxPress = () => {
-    setChecked(prev => {
-      return !prev
-    })
-  }
+
+// const handleCheckboxPress = () => {
+//     setChecked(prev => {
+//       return !prev
+//     })
+//   }
 
 
 
@@ -116,7 +119,7 @@ const handleCheckboxPress = () => {
                             
 
 
-                            <BouncyCheckbox
+                            <BouncyCheckbox 
                             isChecked={isChecked}
                             textColor="#000"
                             fillColor="#000"
@@ -124,7 +127,8 @@ const handleCheckboxPress = () => {
                             fontFamily="JosefinSans-Regular"
                             text={note.desc}
                             checkboxSize={20}
-                            onPress={()=>setIsChecked(!isChecked)}
+                            // onPress={()=>setIsChecked(!isChecked)}
+                            onPress={()=> handleCheck(note.id)}
                         />
                             <Text style={Styles.bottomText}>{note.time}</Text>
                         </View>
